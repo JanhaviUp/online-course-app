@@ -1,1 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Details</title>
 
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <!-- Course Name -->
+    <h1 class="text-primary">{{ course.name }}</h1>
+
+    <hr>
+
+    <!-- Lessons List -->
+    <h3>Lessons:</h3>
+    <ul class="list-group">
+        {% for lesson in lessons %}
+            <li class="list-group-item">
+                {{ lesson.title }}
+            </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+</body>
+</html>
