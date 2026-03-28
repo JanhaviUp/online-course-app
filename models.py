@@ -1,14 +1,22 @@
-class Enrollment(models.Model):
-    user = models.CharField(max_length=100)  # simple version
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+from django.contrib import admin
+from .models import Course, Lesson, Instructor, Learner, Question, Choice, Submission
 
-    def __str__(self):
-        return self.user
+class ChoiceInline(admin.TabularInline):
+    model = Choice
 
+class QuestionInline(admin.TabularInline):
+    model = Question
 
-class Submission(models.Model):
-    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
-    choices = models.ManyToManyField(Choice)
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [ChoiceInline]
 
-    def __str__(self):
-        return f"Submission {self.id} for enrollment {self.enrollment.id}"
+class LessonAdmin(admin.ModelAdmin):
+    inlines = [QuestionInline]
+
+admin.site.register(Course)
+admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Instructor)
+admin.site.register(Learner)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Choice)
+admin.site.register(Submission)
